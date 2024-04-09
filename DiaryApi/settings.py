@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "django_filters",
     "api",
 ]
 
@@ -90,4 +91,60 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-REST_FRAMEWORK = {}
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "%(asctime)s %(levelname)s %(name)s:%(lineno)s %(funcName)s - %(message)s",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "level": "DEBUG",
+            "filename": os.path.join(BASE_DIR, "api.log"),
+            "formatter": "default",
+            "when": "W0",
+            "utc": True,
+            "backupCount": 10,
+            "encoding": "utf-8",
+        },
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+    },
+    "loggers": {
+        "": {
+            "level": "INFO",
+            "handlers": ["file"],
+        },
+        "django": {
+            "level": "INFO",
+            "handlers": ["console"],
+        },
+    },
+}
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "DiaryAPI",
+    "DESCRIPTION": "api for Diary",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
