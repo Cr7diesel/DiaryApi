@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "api",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -57,8 +58,11 @@ WSGI_APPLICATION = "DiaryApi.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
     }
 }
 
@@ -97,6 +101,8 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.BrowsableAPIRenderer",
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 }
 
 LOGGING = {
@@ -141,6 +147,7 @@ LOGGING = {
 }
 
 CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "DiaryAPI",

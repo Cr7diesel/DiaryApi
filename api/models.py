@@ -9,6 +9,7 @@ class User(AbstractUser):
     password = models.CharField(
         max_length=100, unique=True, blank=False, null=False, verbose_name="Пароль"
     )
+    USERNAME_FIELD = "login"
 
     def __str__(self):
         return self.login

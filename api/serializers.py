@@ -7,12 +7,15 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ("login", "password", "username")
         read_only_fields = ("id",)
+
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
 
 
 class DiarySerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    # user = UserSerializer(read_only=True)
 
     class Meta:
         model = Diary
@@ -43,7 +46,6 @@ class DiarySerializer(serializers.ModelSerializer):
 
 
 class NoteSerializer(serializers.ModelSerializer):
-    diary = DiarySerializer(read_only=True)
 
     class Meta:
         model = Note

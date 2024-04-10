@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  diary_api:
+    container_name: diary_api
+    build: .
+    command: /bin/sh -c "python3 manage.py migrate &&
+      python3 manage.py spectacular --color --file schema.yml &&
+      python3 manage.py runserver 0.0.0.0:8000
+      "
+    volumes:
+      - .:/diary_api
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    depends_on:
+      - db_diary
+
+  db_diary:
+    container_name: db_diary
+    image: postgres:14.6-alpine
+    env_file:
+      - .env
+    restart: always
+
+  redis:
+    image: redis:7-alpine3.19
+    hostname: redis
+
+  celery_worker:
+    build:
+      context: .
+    hostname: celery_worker
+    entrypoint: celery
+    command: -A celery_app.app worker --loglevel=info
+    volumes:
+      - .:/diary_api
+    links:
+      - redis
+    depends_on:
+      - redis
+      - db_diary
+    env_file:
+      - .env
+
+  flower:
+    build:
+      context: .
+    hostname: flower
+    entrypoint: celery
+    command: -A celery_app.app flower
+    volumes:
+      - .:/diary_api
+    links:
+      - redis
+    depends_on:
+      - redis
+    ports:
+      - "5555:5555"
