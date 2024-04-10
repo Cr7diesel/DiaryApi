@@ -51,7 +51,7 @@ class Diary(models.Model):
 
 
 class Note(models.Model):
-    text = models.TextField(blank=True, null=True, verbose_name="Текст страницы")
+    text = models.TextField(blank=True, null=True, verbose_name="Текст записи")
     diary = models.ForeignKey(
         Diary, on_delete=models.CASCADE, related_name="notes", verbose_name="Дневник"
     )
@@ -60,5 +60,5 @@ class Note(models.Model):
         return f"Note {self.pk} - {self.diary.title}"
 
     class Meta:
-        verbose_name = "Страница"
-        verbose_name_plural = "Страницы"
+        verbose_name = "Запись"
+        verbose_name_plural = "Записи"
