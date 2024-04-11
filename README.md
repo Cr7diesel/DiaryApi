@@ -32,3 +32,7 @@ REST API приложения для создания и получения дн
 Запуск тестов:
 
 Выполните команду: docker-compose run diary_api pytest
+
+Стэк:
+
+Django, Django REST Framework, Docker, docker-compose, Postgresql, Celery, Redis, drf-spectacular, black, pytest, pytest-factoryboy, Faker.

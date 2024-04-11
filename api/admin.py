@@ -1,6 +1,14 @@
 from django.contrib import admin
 
-from .models import Diary, Note
+from .models import Diary, Note, User
+
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ("id", "username", "email", "login")
+    list_filter = ("id", "login", "email")
+    search_fields = ("id", "login", "email")
+    ordering = ("id",)
 
 
 @admin.register(Diary)
