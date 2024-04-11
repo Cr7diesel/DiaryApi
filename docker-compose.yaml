@@ -42,18 +42,3 @@ services:
       - db_diary
     env_file:
       - .env
-
-  flower:
-    build:
-      context: .
-    hostname: flower
-    entrypoint: celery
-    command: -A celery_app.app flower
-    volumes:
-      - .:/diary_api
-    links:
-      - redis
-    depends_on:
-      - redis
-    ports:
-      - "5555:5555"
