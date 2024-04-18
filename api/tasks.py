@@ -8,6 +8,4 @@ from .views import logger
 def delete_old_diaries():
     logger.info("Deleting old diaries")
     today = datetime.now().date()
-    diaries = Diary.objects.filter(expiration__lte=today)
-    for diary in diaries:
-        diary.delete()
+    Diary.objects.filter(expiration__lte=today).delete()

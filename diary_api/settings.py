@@ -36,7 +36,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "DiaryApi.urls"
+ROOT_URLCONF = "diary_api.urls"
 
 TEMPLATES = [
     {
@@ -54,7 +54,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "DiaryApi.wsgi.application"
+WSGI_APPLICATION = "diary_api.wsgi.application"
 
 DATABASES = {
     "default": {
@@ -150,7 +150,7 @@ CELERY_BROKER_URL = "redis://redis:6379/0"
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "DiaryAPI",
+    "TITLE": "diary_api",
     "DESCRIPTION": "api for Diary",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,

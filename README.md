@@ -1,4 +1,4 @@
-REST API DiaryApi:
+REST API diary_apidocker:
 
 Описание проекта:
 

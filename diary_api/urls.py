@@ -24,6 +24,6 @@ urlpatterns = [
 ]
 
 
-admin.site.site_header = "Diary API"
-admin.site.site_title = "Diary API"
-admin.site.index_title = "Welcome to Diary API"
+admin.site.site_header = "diary_api"
+admin.site.site_title = "diary_api"
+admin.site.index_title = "Welcome to diary_api"

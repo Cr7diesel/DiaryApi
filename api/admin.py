@@ -21,6 +21,7 @@ class DiaryAdmin(admin.ModelAdmin):
 
 @admin.register(Note)
 class NoteAdmin(admin.ModelAdmin):
+    list_select_related = ('diary',)
     list_display = ("id", "text", "diary")
     list_filter = (
         "id",
